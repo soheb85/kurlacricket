@@ -89,6 +89,12 @@ const Page = () => {
       Team Registration Form
     </h3>
     <form className="space-y-3">
+      <h2 className='font-semibold text-red-500'>Tournament Id - {tournament.id}</h2>
+    <input
+        type="text"
+        placeholder="Team Name"
+        className="w-full p-2 border rounded bg-white dark:bg-gray-700 dark:text-white"
+      />
       <input
         type="text"
         placeholder="Team Name"
@@ -146,11 +152,7 @@ const Page = () => {
       Player Registration Form
     </h3>
     <form className="space-y-3">
-      <input
-        type="text"
-        placeholder="Player Name"
-        className="w-full p-2 border rounded text-black dark:text-white bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600"
-      />
+      <h2 className='font-semibold text-red-500'>Tournament Id - {tournament.id}</h2>
       <input
         type="email"
         placeholder="Email"

@@ -7,6 +7,7 @@ import SponsorCard from "@/components/MainPage/SponsorCard";
 import SpecialThanksCard from "@/components/MainPage/SpecialThanksCard";
 import TournamentCard from "@/components/MainPage/TournamentCard";
 import OtherFeatureCard from "@/components/MainPage/OtherFeatureCard";
+import AlertImage from "@/components/MainPage/AlertImage";
 
 export default function Home() {
   const[loading, setLoading] = useState(true);
@@ -35,6 +36,7 @@ const [progress, setProgress] = useState(0);
     <div className="">
       <div>
         <HeroPage/>
+        <AlertImage/>
         <div className="px-4 py-10 flex flex-col items-center gap-6 font-outfit">
       <h1 className="text-[17px] font-bold text-center text-white dark:text-green-400 dark:bg-white bg-black p-2 rounded-lg">📢 Become a Cricket Tournament Sponsor</h1>
       <p className="text-center max-w-md text-amber-600 font-semibold">
