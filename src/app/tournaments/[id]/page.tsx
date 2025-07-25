@@ -43,6 +43,7 @@ useEffect(() => {
         const response = await fetch("/api/player/id");
         if (!response.ok) throw new Error("Failed to fetch player ID");
         const data = await response.json();
+        console.log(data);
         setCount(data.nextId);
       } catch (error: any) {
         console.error(error);
@@ -105,7 +106,7 @@ useEffect(() => {
           Register as Player
         </button>
         <div className='py-2 text-[18px] font-bold'>
-        <h1>Total Form :-  <span className='text-amber-500 px-1'>{count-1} / 80</span></h1>
+        <h1>Total Form :-  <span className='text-amber-500 px-1'>{count- (count == 0 ? 0:1)} / 80</span></h1>
       </div>
       </div>
       
