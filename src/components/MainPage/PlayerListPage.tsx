@@ -45,7 +45,7 @@ const PlayerListPage = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto mt-6 p-6 bg-gray-50 dark:bg-gray-800 rounded-xl shadow">
+    <div className="font-outfit max-w-7xl mx-auto mt-6 p-6 bg-gray-50 dark:bg-gray-800 rounded-xl shadow">
       <h2 className="text-2xl font-bold mb-6 text-gray-800 dark:text-white">
         Registered Players
       </h2>

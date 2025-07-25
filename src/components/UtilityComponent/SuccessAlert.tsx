@@ -34,7 +34,7 @@ const SuccessAlert = ({ message, visible, onClose }: Props) => {
   if (!visible) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/70 bg-opacity-50 flex items-center justify-center z-50">
+    <div className="fixed font-outfit inset-0 bg-black/70 bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-xl text-center max-w-sm w-full">
         <h2 className="text-xl font-bold text-green-600">Success</h2>
         <p className="text-gray-700 dark:text-gray-300 mt-2">{message}</p>
