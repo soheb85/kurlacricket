@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
@@ -23,6 +24,7 @@ const tournaments = [
 ]
 
 const Page = () => {
+  const [count,setCount] = useState(0);
   const router = useRouter();
   const params = useParams()
   const id = parseInt(params?.id as string)
@@ -34,6 +36,20 @@ const Page = () => {
   if (!tournament) {
     notFound()
   }
+
+useEffect(() => {
+  const fetchNextId = async () => {
+      try {
+        const response = await fetch("/api/player/id");
+        if (!response.ok) throw new Error("Failed to fetch player ID");
+        const data = await response.json();
+        setCount(data.nextId);
+      } catch (error: any) {
+        console.error(error);
+      }
+    };
+    fetchNextId();
+},[])
 
   
 
@@ -70,6 +86,8 @@ const Page = () => {
       </p>
       <h2 className='text-blue-500 py-2'>🏏 Only 2 All over india cricket player allowed</h2>
       <p className="text-red-600 mb-1 pb-2">👥 Only First 80 Form Consider for Tournament!!!</p>
+
+      
       
 
 
@@ -86,7 +104,11 @@ const Page = () => {
         >
           Register as Player
         </button>
+        <div className='py-2 text-[18px] font-bold'>
+        <h1>Total Form :-  <span className='text-amber-500 px-1'>{count-1} / 80</span></h1>
       </div>
+      </div>
+      
 
       {/* {registerType === 'team' && (
   <div className="border border-gray-300 p-4 rounded-xl bg-gray-50 dark:bg-gray-800">
