@@ -1,9 +1,10 @@
 'use client'
 
-import React, { useState } from 'react'
+import React from 'react'
 import { useParams } from 'next/navigation'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
 const tournaments = [
   {
@@ -13,37 +14,28 @@ const tournaments = [
     location: 'Dr. Babasaheb Ground',
     date: '15, 16, 17th August 2025',
     time: '10:00 AM',
-    entryFee: 10000,
+    entryFee: 6000,
     playerFee: 300,
     teamLimit: 8,
-    playerLimit: 12,
+    playerLimit: 10,
     youtubeLive: true,
-  },
-  {
-    id: 2,
-    name: 'Summer Cricket Fest',
-    image: '/tcf_img.png',
-    location: 'BKC Stadium',
-    date: '27th July 2025',
-    time: '2:00 PM',
-    entryFee: 1500,
-    playerFee: 150,
-    teamLimit: 8,
-    playerLimit: 11,
-    youtubeLive: false,
   },
 ]
 
 const Page = () => {
+  const router = useRouter();
   const params = useParams()
   const id = parseInt(params?.id as string)
   const tournament = tournaments.find((t) => t.id === id)
 
-  const [registerType, setRegisterType] = useState<'team' | 'player' | null>(null)
+  // const [registerType, setRegisterType] = useState<'player' | null>(null)
+  
 
   if (!tournament) {
     notFound()
   }
+
+  
 
   return (
     <div className="max-w-3xl mx-auto p-6 font-outfit">
@@ -61,29 +53,42 @@ const Page = () => {
       <p className="text-gray-600 mb-1">📅 Date: {tournament.date}</p>
       <p className="text-gray-600 mb-1">🕒 Time: {tournament.time}</p>
       <p className="text-gray-600 mb-1">🎟️ Entry Fee: ₹{tournament.entryFee}</p>
-      <p className="text-gray-600 mb-1">🧍 Player Fee: ₹{tournament.playerFee}</p>
+      <div className='px-2 py-2'>
+        <h1>• 1st Price :- <span className='text-orange-500 font-semibold'>20,000 + Trophy</span></h1>
+      </div>
+      <div className='px-2 py-2'>
+        <h1>• 2nd Price :- <span className='text-orange-500 font-semibold'>17,000 + Trophy</span></h1>
+      </div>
+      <div className='pb-2 font-semibold'>
+        <h1 className='text-[19px] text-teal-400'>• Every Match will be a <span>Man of the Match</span> Trophy</h1>
+      </div>
+      <p className="text-gray-600 mb-1 font-semibold">🧍 Player Fee: <span className='text-red-700 font-bold text-[20px]'>₹ {tournament.playerFee}</span>  ( T-Shirt )</p>
       <p className="text-gray-600 mb-1">🏏 Teams: {tournament.teamLimit}</p>
       <p className="text-gray-600 mb-1">👥 Players per Team: {tournament.playerLimit}</p>
       <p className="text-gray-600 mb-4">
-        📺 YouTube Live: {tournament.youtubeLive ? 'Yes' : 'No'}
+        📺 YouTube Live: {tournament.youtubeLive ? 'Let You Know Soon!!' : 'No'}
       </p>
+      <h2 className='text-blue-500 py-2'>🏏 Only 2 All over india cricket player allowed</h2>
+      <p className="text-red-600 mb-1 pb-2">👥 Only First 80 Form Consider for Tournament!!!</p>
+      
+
 
       <div className="flex space-x-4 mb-6">
-        <button
+        {/* <button
           onClick={() => setRegisterType('team')}
           className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition"
         >
           Register as Team
-        </button>
+        </button> */}
         <button
-          onClick={() => setRegisterType('player')}
+          onClick={() => router.push('/players')}
           className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
         >
           Register as Player
         </button>
       </div>
 
-      {registerType === 'team' && (
+      {/* {registerType === 'team' && (
   <div className="border border-gray-300 p-4 rounded-xl bg-gray-50 dark:bg-gray-800">
     <h3 className="text-lg font-semibold mb-2 text-gray-900 dark:text-white">
       Team Registration Form
@@ -143,97 +148,7 @@ const Page = () => {
       </button>
     </form>
   </div>
-)}
-
-
-   {registerType === 'player' && (
-  <div className="border border-gray-300 p-4 rounded-xl bg-gray-50 dark:bg-gray-800">
-    <h3 className="text-lg font-semibold mb-2 text-gray-800 dark:text-white">
-      Player Registration Form
-    </h3>
-    <form className="space-y-3">
-      <h2 className='font-semibold text-red-500'>Tournament Id - {tournament.id}</h2>
-      <input
-        type="email"
-        placeholder="Email"
-        className="w-full p-2 border rounded text-black dark:text-white bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600"
-      />
-      <input
-        type="tel"
-        placeholder="Phone Number"
-        className="w-full p-2 border rounded text-black dark:text-white bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600"
-      />
-      <input
-        type="text"
-        placeholder="Preferred Role (e.g. Batsman)"
-        className="w-full p-2 border rounded text-black dark:text-white bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600"
-      />
-      <input
-        type="text"
-        placeholder="Jersey Name"
-        className="w-full p-2 border rounded text-black dark:text-white bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600"
-      />
-      <input
-        type="number"
-        placeholder="Jersey Number"
-        className="w-full p-2 border rounded text-black dark:text-white bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600"
-      />
-
-      {/* Payment Method */}
-      <select
-        defaultValue=""
-        className="w-full p-2 border rounded text-black dark:text-white bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600"
-      >
-        <option disabled value="">
-          Select Payment Method
-        </option>
-        <option value="cash">Cash</option>
-        <option value="online">Online</option>
-      </select>
-
-      {/* Jersey Size */}
-      <select
-        defaultValue=""
-        className="w-full p-2 border rounded text-black dark:text-white bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600"
-      >
-        <option disabled value="">
-          Select Jersey Size
-        </option>
-        {["34", "36", "38", "40", "42", "44", "46", "48"].map(size => (
-          <option key={size} value={size}>{size}</option>
-        ))}
-      </select>
-
-      {/* Area */}
-      <select
-        defaultValue=""
-        className="w-full p-2 border rounded text-black dark:text-white bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600"
-      >
-        <option disabled value="">
-          Select Area
-        </option>
-        {[
-          "Nehru Nagar",
-          "Jagruti Nagar",
-          "Kurla West",
-          "Qureshi Nagar",
-          "Thakkar Bappa",
-          "Shiv Shrusti"
-        ].map(area => (
-          <option key={area} value={area}>{area}</option>
-        ))}
-      </select>
-
-      <button
-        type="submit"
-        className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition"
-      >
-        Submit
-      </button>
-    </form>
-  </div>
-)}
-
+)} */}
 
 
     </div>

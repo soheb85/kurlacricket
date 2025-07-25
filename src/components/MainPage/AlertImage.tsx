@@ -57,9 +57,9 @@ const AlertImage = () => {
             setShowAlert(false)
             router.push('/tournaments/1')
           }}
-          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded w-full"
+          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded w-full font-semibold"
         >
-          Go to Tournament Page
+          Click to go Rainy Cricket Tournament Page
         </button>
       </div>
     </div>

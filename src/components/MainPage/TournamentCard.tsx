@@ -22,38 +22,6 @@ const tournaments: Tournament[] = [
     date: "15, 16, 17th August 2025",
     time: "10:00 AM",
   },
-  {
-    id: 2,
-    image: "/tcf_img.png",
-    name: "Summer Cricket Fest",
-    venue: "BKC Stadium",
-    date: "27th July 2025",
-    time: "2:00 PM",
-  },
-  {
-    id: 3,
-    image: "/kpl3.png",
-    name: "Junior Cup 2025",
-    venue: "Wankhede Practice Nets",
-    date: "29th July 2025",
-    time: "9:00 AM",
-  },
-  {
-    id: 4,
-    image: "/kpl4.png",
-    name: "Monsoon Bash",
-    venue: "Andheri Sports Complex",
-    date: "1st August 2025",
-    time: "11:00 AM",
-  },
-  {
-    id: 5,
-    image: "/kpl5.png",
-    name: "Legends Night Cricket",
-    venue: "Kurla Night Turf",
-    date: "3rd August 2025",
-    time: "7:00 PM",
-  },
 ];
 
 const TournamentCard = () => {
