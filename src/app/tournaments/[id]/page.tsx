@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useParams } from 'next/navigation'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
@@ -24,7 +24,7 @@ const tournaments = [
 ]
 
 const Page = () => {
-  const [count,setCount] = useState(0);
+  // const [count,setCount] = useState(0);
   const router = useRouter();
   const params = useParams()
   const id = parseInt(params?.id as string)
@@ -44,7 +44,7 @@ useEffect(() => {
         if (!response.ok) throw new Error("Failed to fetch player ID");
         const data = await response.json();
         console.log(data);
-        setCount(data.nextId);
+        // setCount(data.nextId);
       } catch (error: any) {
         console.error(error);
       }
@@ -105,9 +105,9 @@ useEffect(() => {
         >
           Register as Player
         </button>
-        <div className='py-2 text-[18px] font-bold'>
+        {/* <div className='py-2 text-[18px] font-bold'>
         <h1>Total Form :-  <span className='text-amber-500 px-1'>{count- (count == 0 ? 0:1)} / 80</span></h1>
-      </div>
+      </div> */}
       </div>
       
 
