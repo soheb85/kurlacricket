@@ -252,7 +252,7 @@ const PlayerRegistrationPage = () => {
             </h2>
             {/* Display the loaded Player ID */}
             <h2 className="font-semibold text-green-500 text-[18px]">
-              Player ID - {playerId === null ? "Loading..." : playerId}
+              PID - 143{playerId === null ? "Loading..." : playerId}20
             </h2>
           </div>
 
