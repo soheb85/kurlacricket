@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
       .join(' ')
       .toLowerCase();
 
-    const keywords = ['300', 'soheb' ,'khan', 'payment', 'utr', 'pay','sohebkhan3145@okaxis','Transaction','PhonePe','UTR:','UTR:','Google','Bank'];
+    const keywords = ['soheb','khan','sohebkhan3145@okaxis',];
     const isValidScreenshot = keywords.some(k => detectedText.includes(k.toLowerCase()));
 
     if (!isValidScreenshot) {
