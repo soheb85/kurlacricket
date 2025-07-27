@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@aws-sdk/client-rekognition": "^3.848.0",
     "@aws-sdk/client-s3": "^3.850.0",
     "aws-sdk": "^2.1692.0",
     "axios": "^1.11.0",

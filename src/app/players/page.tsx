@@ -19,7 +19,7 @@ interface PlayerFormData {
 }
 
 interface Errors {
-  [key: string]: string;
+  [key: string]: string | undefined; 
 }
 
 const PlayerRegistrationPage = () => {
@@ -68,7 +68,6 @@ const PlayerRegistrationPage = () => {
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
-    // ... (This function remains unchanged)
     const { name, value, type } = e.target;
     setApiError(null);
 
@@ -77,12 +76,34 @@ const PlayerRegistrationPage = () => {
       const file = fileInput.files?.[0] || null;
 
       if (file) {
+        // --- NEW: File Type Validation ---
+        const allowedTypes = ["image/jpeg","image/jpg", "image/png"];
+        if (!allowedTypes.includes(file.type)) {
+          setErrors((prev) => ({
+            ...prev,
+            screenshot: "Invalid file type. Only JPG and PNG images are allowed.",
+          }));
+          setPreview(null); // Clear preview of invalid file
+          fileInput.value = ""; // Reset the file input so user can select again
+          setFormData({ ...formData, screenshot: null }); // Clear from form state
+          return; // Stop further processing
+        }
+        // --- End of Validation ---
+
+        // If validation passes, clear any previous error
+        setErrors((prev) => ({ ...prev, screenshot: undefined }));
         setFormData({ ...formData, screenshot: file });
+
         const reader = new FileReader();
         reader.onloadend = () => {
           setPreview(reader.result as string);
         };
         reader.readAsDataURL(file);
+      } else {
+        // If no file is selected (e.g., user cancels file selection)
+        setFormData({ ...formData, screenshot: null });
+        setPreview(null);
+        setErrors((prev) => ({ ...prev, screenshot: "Upload payment screenshot (JPG/PNG only)." }));
       }
     } else {
       setFormData({ ...formData, [name]: value });
@@ -90,7 +111,6 @@ const PlayerRegistrationPage = () => {
   };
 
   const validate = (): boolean => {
-    // ... (This function remains unchanged)
     const newErrors: Errors = {};
     if (!formData.name) newErrors.name = "Name is required";
     if (!/^\d{10}$/.test(formData.phone))
@@ -101,8 +121,9 @@ const PlayerRegistrationPage = () => {
       newErrors.jerseyNumber = "Only numbers allowed";
     if (!formData.jerseySize) newErrors.jerseySize = "Select jersey size";
     if (!formData.area) newErrors.area = "Select area";
+    // We check for the file in state, which is cleared if the type is invalid
     if (!formData.screenshot)
-      newErrors.screenshot = "Upload payment screenshot";
+      newErrors.screenshot = "Upload payment screenshot (JPG/PNG only).";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -145,6 +166,21 @@ const PlayerRegistrationPage = () => {
       }
 
       setShowSuccessAlert(true);
+      // Optionally reset form data after successful submission
+      setFormData({
+        playerId: pId, // Keep the last fetched pId or re-fetch next
+        name: "",
+        phone: "",
+        role: "",
+        jerseyName: "",
+        jerseyNumber: "",
+        jerseySize: "",
+        area: "",
+        screenshot: null,
+      });
+      setPreview(null); // Clear image preview
+      setErrors({}); // Clear any previous errors
+      setPlayerId(null); // Reset playerId to trigger a new fetch
     } catch (error: any) {
       console.error("Submission failed:", error);
       setApiError(error.message || "An unexpected error occurred.");
@@ -174,37 +210,40 @@ const PlayerRegistrationPage = () => {
           />
         </div>
         <div className="border border-gray-300 rounded-xl bg-yellow-50 dark:bg-gray-800 p-4 mt-4 shadow-md">
-  <h3 className="text-xl font-bold text-red-600 mb-3">📋 Registration Rules Rainy Cricket Tournament 2025</h3>
+          <h3 className="text-xl font-bold text-red-600 mb-3">
+            📋 Registration Rules Rainy Cricket Tournament 2025
+          </h3>
 
-  <ul className="list-decimal list-inside space-y-2 text-gray-800 dark:text-gray-100">
-    <li>
-      First pay the <span className="text-red-500 font-semibold">₹ 300</span> registration fee on GPay Number: <span className="font-semibold text-blue-600">9324458770</span> ya barcode se payment karo, <strong>phir hi form bharo</strong>.
-    </li>
-    <li>
-      <strong>Har field zaroori hai</strong> – please fill all the fields properly. Empty fields accept nahi honge.
-    </li>
-    <li>
-      <strong>Only upload payment screenshot</strong>, apna photo ya kuch aur mat bhejo.
-    </li>
-    <li>
-      Form submit karne ke baad, WhatsApp group join karne ka link milega. <strong>Us group ko zaroor join karo</strong> for further updates.
-    </li>
-    <li>
-      Agar <strong>payment screenshot valid nahi hai</strong> ya galat hai, toh player ko auction mein include nahi kiya jayega. Payment genuine hona chahiye.
-    </li>
-    <li>
-      Join the Whatsapp Group After Submit your Form!!!
-    </li>
-    <li>
-      Any Issue to fill the form Contact on whatsapp only <span className="text-red-500 font-semibold">+91 9324458770</span> Please Do not call!
-    </li>
-  </ul>
+          <ul className="list-decimal list-inside space-y-2 text-gray-800 dark:text-gray-100">
+            <li>
+              First pay the <span className="text-red-500 font-semibold">₹ 300</span> registration fee on GPay Number:{" "}
+              <span className="font-semibold text-blue-600">9324458770</span> ya barcode se payment karo,{" "}
+              <strong>phir hi form bharo</strong>.
+            </li>
+            <li>
+              <strong>Har field zaroori hai</strong> – please fill all the fields properly. Empty fields accept nahi honge.
+            </li>
+            <li>
+              <strong>Only upload payment screenshot</strong>, apna photo ya kuch aur mat bhejo.
+            </li>
+            <li>
+              Form submit karne ke baad, WhatsApp group join karne ka link milega.{" "}
+              <strong>Us group ko zaroor join karo</strong> for further updates.
+            </li>
+            <li>
+              Agar <strong>payment screenshot valid nahi hai</strong> ya galat hai, toh player ko auction mein include nahi kiya jayega. Payment genuine hona chahiye.
+            </li>
+            <li>Join the Whatsapp Group After Submit your Form!!!</li>
+            <li>
+              Any Issue to fill the form Contact on whatsapp only{" "}
+              <span className="text-red-500 font-semibold">+91 9324458770</span> Please Do not call!
+            </li>
+          </ul>
 
-  <div className="mt-4 text-sm font-medium text-gray-600 dark:text-gray-300">
-    🟢 Follow all instructions carefully to confirm your registration.
-  </div>
-</div>
-
+          <div className="mt-4 text-sm font-medium text-gray-600 dark:text-gray-300">
+            🟢 Follow all instructions carefully to confirm your registration.
+          </div>
+        </div>
 
         <form onSubmit={handleSubmit} className="space-y-4 pt-3">
           <div className="flex justify-between">
@@ -217,7 +256,6 @@ const PlayerRegistrationPage = () => {
             </h2>
           </div>
 
-          {/* All your input fields remain the same... */}
           <input
             type="text"
             name="name"
@@ -240,7 +278,6 @@ const PlayerRegistrationPage = () => {
             <p className="text-red-500 text-sm">{errors.phone}</p>
           )}
 
-          {/* ... other fields ... */}
           <input
             type="text"
             name="role"
@@ -328,7 +365,8 @@ const PlayerRegistrationPage = () => {
             <input
               type="file"
               name="screenshot"
-              accept="image/*"
+              // NEW: Update the accept attribute
+              accept="image/jpeg, image/jpg, image/png"
               onChange={handleChange}
               className="w-full p-2 border rounded bg-white text-black dark:bg-gray-700 dark:text-white"
             />
