@@ -11,7 +11,7 @@ const tournaments = [
   {
     id: 1,
     name: 'Rainy Cricket Tournament',
-    image: '/rct_img.png',
+    image: '/sp_banner.png',
     location: 'Dr. Babasaheb Ground',
     date: '15, 16, 17th August 2025',
     time: '10:00 AM',
@@ -56,16 +56,16 @@ useEffect(() => {
 
   return (
     <div className="max-w-3xl mx-auto p-6 font-outfit">
-      <div className="relative w-full h-60 rounded-xl overflow-hidden shadow-md mb-6">
+      <div className="relative w-full h-80 rounded-xl overflow-hidden shadow-md mb-6">
         <Image
           src={tournament.image}
           alt={tournament.name}
           fill
-          className="object-cover"
+          className="object-fill"
         />
       </div>
 
-      <h1 className="text-3xl font-bold mb-2">{tournament.name}</h1>
+      <h1 className="text-2xl font-bold mb-2">{tournament.name}</h1>
       <p className="text-gray-600 mb-1">📍 Location: {tournament.location}</p>
       <p className="text-gray-600 mb-1">📅 Date: {tournament.date}</p>
       <p className="text-gray-600 mb-1">🕒 Time: {tournament.time}</p>
@@ -79,14 +79,14 @@ useEffect(() => {
       <div className='pb-2 font-semibold'>
         <h1 className='text-[19px] text-teal-400'>• Every Match will be a <span>Man of the Match</span> Trophy</h1>
       </div>
-      <p className="text-gray-600 mb-1 font-semibold">🧍 Player Fee: <span className='text-red-700 font-bold text-[20px]'>₹ {tournament.playerFee}</span>  ( T-Shirt )</p>
+      <p className="text-gray-600 mb-1 font-semibold">🧍 Player Fee: <span className='text-red-700 font-bold text-[20px]'>₹ {tournament.playerFee}</span></p>
       <p className="text-gray-600 mb-1">🏏 Teams: {tournament.teamLimit}</p>
       <p className="text-gray-600 mb-1">👥 Players per Team: {tournament.playerLimit}</p>
       <p className="text-gray-600 mb-4">
         📺 YouTube Live: {tournament.youtubeLive ? 'Let You Know Soon!!' : 'No'}
       </p>
-      <h2 className='text-blue-500 py-2'>🏏 Only 2 All over india cricket player allowed</h2>
-      <p className="text-red-600 mb-1 pb-2">👥 Only First 80 Form Consider for Tournament!!!</p>
+      <h2 className='text-blue-500 py-2'>🏏 No Overseas cricket player</h2>
+      <p className="text-red-600 mb-1 pb-2">👥 Only First 88 Form Consider for Tournament!!!</p>
 
       
       
