@@ -32,7 +32,7 @@ const AlertImage = () => {
         {/* Image */}
         <div className="w-[100%] mb-4">
           <Image
-            src="/sp_banner.png" // replace with actual image in /public folder
+            src="/sp_banner1.png" // replace with actual image in /public folder
             alt="Tournament"
             width={400}
             height={200}

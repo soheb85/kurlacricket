@@ -11,7 +11,7 @@ const tournaments = [
   {
     id: 1,
     name: 'Rainy Cricket Tournament',
-    image: '/sp_banner.png',
+    image: '/sp_banner1.png',
     location: 'Dr. Babasaheb Ground',
     date: '15, 16, 17th August 2025',
     time: '10:00 AM',
