@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
       .join(' ')
       .toLowerCase();
 
-    const keywords = ['soheb','khan','sohebkhan3145@okaxis',];
+    const keywords = ['soheb','sohebkhan3145@okaxis',];
     const isValidScreenshot = keywords.some(k => detectedText.includes(k.toLowerCase()));
 
     if (!isValidScreenshot) {
